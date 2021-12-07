@@ -5,9 +5,12 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{9413EDBA-B603-419A-A5E8-082E3585A355}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUDOperations", "CRUDOperations\CRUDOperations.csproj", "{4779E083-5AC8-4C81-AD89-9DEB23C13794}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUDOperations", "CRUDOperations\CRUDOperations.csproj", "{4779E083-5AC8-4C81-AD89-9DEB23C13794}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8B4F4F48-F5CE-4382-9720-332565314FAD} = {8B4F4F48-F5CE-4382-9720-332565314FAD}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModels", "DataModels\DataModels.csproj", "{8B4F4F48-F5CE-4382-9720-332565314FAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\DataModels.csproj", "{8B4F4F48-F5CE-4382-9720-332565314FAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
