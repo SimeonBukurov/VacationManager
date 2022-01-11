@@ -7,7 +7,7 @@ using DataModels;
 
 namespace CRUDOperations
 {
-    public class Vacation
+    public class Vacationcommands
     {
         public static void ListVacationCommands(ModelContext db)
         {
@@ -58,38 +58,9 @@ namespace CRUDOperations
             }
             else
             {
-                Vacation vacation = new Vacation();
-                vacation.SubmitByUser = (db);
-                vacation.StartDate = startdate;
-                vacation.EndDate = enddate;
-                vacation.DateOfCreation = dateofcreation;
-                vacation.IsApproved = isapproved;
 
-                db.Vacations.Add(vacation);
-                try
-                {
-                    db.SaveChanges();
-                }
-
-                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
-                {
-                    Exception raise = dbEx;
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            string message = string.Format("{0}:{1}",
-                                validationErrors.Entry.Entity.ToString(),
-                                validationError.ErrorMessage);
-                            raise = new InvalidOperationException(message, raise);
-
-                        }
-                    }
-                    throw raise;
-                }
-                Console.WriteLine();
-                Console.WriteLine("The vacation date has been added.");
             }
+
         }
 
         static void VacationRead(ModelContext db)
@@ -101,32 +72,153 @@ namespace CRUDOperations
             }
 
         }
-        
-        //static void VacationUpdate(ModelContext db)
-        //{
-        //    VacationRead(db);
-        //    Console.WriteLine();
-        //    Console.Write("Select a vacation: ");
-        //    string input = Console.ReadLine();
 
-          
-        //}
-        
-       //static void VacationRemove(ModelContext db)
-       // {
-       //     VacationRead(db);
-       //     //Console.WriteLine();
-       //     Console.Write("Select a vacation: ");
-       //     string input = Console.ReadLine();
+        static void VacationUpdate(ModelContext db)
+        {
+            VacationRead(db);
+            Console.WriteLine();
+            Console.Write("Select a vacation: ");
+            string input = Console.ReadLine();
+            Vacation item = db.Vacations.FirstOrDefault(Vacation => Vacation.StartDate == input);
+            if (item == null)
+            {
+                Console.Write("Vacation not found");
+            }
+            else
+            {
+                Console.Write("Enter new vacation: ");
+                string name = Console.ReadLine();
 
-       //     Vacation item = db.Vacations.FirstOrDefault(vacation => vacation.StartDate == input);
-       //     if (item == null)
-       //     {
-       //         Console.Write("The selected vacation could not be found.");
-       //     }
-       // }
+                item.StartDate = name;
+                db.SaveChanges();
+                Console.Write("Vacation Updated!");
+            }
 
+        }
+
+        static void VacationRemove(ModelContext db)
+        {
+            VacationRead(db);
+            Console.Write("Select a vacation: ");
+            string input = Console.ReadLine();
+
+            Vacation item = db.Vacations.FirstOrDefault(vacation => vacation.StartDate == input);
+            if (item == null)
+            {
+                Console.Write("Vacation Not Found");
+            }
+            else
+            {
+                db.Vacations.Remove(item);
+                db.SaveChanges();
+                Console.Write("Vacation Removed!");
+            }
+
+        }
+        static Vacation PickVacation(ModelContext db)
+        {
+            if (db.Vacations.Count() < 1)
+            {
+                Console.WriteLine("No Vacation!");
+                return null;
+            }
+
+            Console.WriteLine("Vacations:");
+            foreach (var vacation in db.Vacations)
+            {
+                Console.WriteLine(vacation);
+            }
+            Console.Write("Select Vacations for the team: ");
+            string input = Console.ReadLine();
+
+            while (true)
+            {
+
+                {
+                    Vacation item = db.Vacations.FirstOrDefault(Vacation => Vacation.DateOfCreation == input);
+                    if (item != null)
+                    {
+                        return item;
+                    }
+                    Console.WriteLine("Invalid Vacation! Try again.");
+
+                }
+            }
+
+
+            static User PickUser(ModelContext db)
+            {
+                if (db.Users.Count() < 1)
+                {
+                    Console.WriteLine("No Users!");
+                    return null;
+                }
+
+                Console.WriteLine("Users:");
+                foreach (var user in db.Users)
+                {
+                    Console.WriteLine(user);
+                }
+                Console.Write("Select User from the team: ");
+                string input = Console.ReadLine();
+
+                while (true)
+                {
+                    {
+                        User item = db.Users.FirstOrDefault(User => User.PersonalName == input);
+                        if (item != null)
+                        {
+                            return item;
+                        }
+                        Console.WriteLine("Invalid User! Try again.");
+                    }
+                }
+            }
+
+            static void AddUserToVacation(ModelContext db)
+            {
+                Vacation vacation = PickVacation(db);
+
+                while (true)
+                {
+                    Console.WriteLine("1 - Add User to vacation");
+                    Console.WriteLine("2 - Remove User from Vacation");
+                    Console.WriteLine("0 - Exit");
+                    Console.WriteLine();
+                    Console.Write("Enter your command: ");
+                    string input = Console.ReadLine();
+
+                    int selection = -1;
+                    if (int.TryParse(input, out selection))
+                    {
+                        if (selection == 0)
+                        {
+                            break;
+                        }
+                        else if (selection == 1)
+                        {
+                            User user = PickUser(db);
+                            if (!vacation.StartDate.Contains(user))
+                            {
+                                vacation.StartDate.Add(user);
+                                db.SaveChanges();
+                            }
+                        }
+                        else if (selection == 2)
+                        {
+                            User user = PickUser(db);
+                            if (!vacation.EndDate.Contains(user))
+                            {
+                                vacation.EndDate.Remove(user);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
     }
-
 }
 
