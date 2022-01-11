@@ -26,11 +26,9 @@ namespace DataModels
         public string Password { get; set; }
         [Required]
         public string PersonalName { get; set; }
-        [Required]
         public virtual Role Role { get; set; }
-        [Required]
         public virtual Team Team { get; set; }
-        public User(string username, string password,string personalName, Role role, Team team)
+        public User(string username, string password, string personalName, Role role, Team team)
         {
             Username = username;
             Password = password;
@@ -48,12 +46,10 @@ namespace DataModels
     {
         [Key, Required]
         public string Name { get; set; }
-        [Required]
         public virtual List<User> Users { get; set; }
-        public Role(string name, User user)
+        public Role(string name)
         {
             Name = name;
-            Users.Add(user);
         }
         public Role()
         {
@@ -67,16 +63,12 @@ namespace DataModels
         public string Name { get; set; }
         [Required]
         public string ProjectName { get; set; }
-        [Required]
-        public virtual List<User> Developers { get; set; }
-        [Required]
         public virtual User Leader { get; set; }
-        public Team(string name, string projectName, List<User> developers, User leader)
+        public virtual List<User> Developers { get; set; }
+        public Team(string name, string projectName)
         {
             Name = name;
             ProjectName = projectName;
-            Developers = developers;
-            Leader = leader;
         }
         public Team()
         {
@@ -95,13 +87,12 @@ namespace DataModels
         [Required]
         public string DateOfCreation { get; set; }
         public bool IsApproved { get; set; }
-        public Vacation(User submitByUser, string startDate, string endDate, string dateOfCreation, bool isApproved)
+        public Vacation(User submitByUser, string startDate, string endDate, string dateOfCreation)
         {
             SubmitByUser = submitByUser;
             StartDate = startDate;
             EndDate = endDate;
             DateOfCreation = dateOfCreation;
-            IsApproved = isApproved;
         }
         public Vacation()
         {
