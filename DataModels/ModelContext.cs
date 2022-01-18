@@ -30,11 +30,11 @@ namespace DataModels
         public virtual Role Role { get; set; }
         [Required]
         public virtual Team Team { get; set; }
-        public User(string username, string password,string personalname, Role role, Team team)
+        public User(string username, string password,string personalName, Role role, Team team)
         {
             Username = username;
             Password = password;
-            PersonalName = personalname;
+            PersonalName = personalName;
             this.Role = role;
             this.Team = team;
         }
@@ -42,9 +42,7 @@ namespace DataModels
         {
 
         }
-
     }
- 
 
     public class Role
     {
@@ -52,14 +50,14 @@ namespace DataModels
         public string Name { get; set; }
         [Required]
         public virtual List<User> Users { get; set; }
+        public Role(string name, User user)
+        {
+            Name = name;
+            Users.Add(user);
+        }
         public Role()
         {
 
-        }
-        public Role(string name, List<User> user)
-        {
-            Name = name;
-            Users = user;
         }
     }
 
@@ -73,16 +71,16 @@ namespace DataModels
         public virtual List<User> Developers { get; set; }
         [Required]
         public virtual User Leader { get; set; }
+        public Team(string name, string projectName, List<User> developers, User leader)
+        {
+            Name = name;
+            ProjectName = projectName;
+            Developers = developers;
+            Leader = leader;
+        }
         public Team()
         {
 
-        }
-        public Team(string name, string projectname, List<User> developers, User leader)
-        {
-            ProjectName = projectname;
-            Leader = leader;    
-            Name = name;
-            Developers = developers;
         }
     }
 
@@ -97,6 +95,14 @@ namespace DataModels
         [Required]
         public string DateOfCreation { get; set; }
         public bool IsApproved { get; set; }
+        public Vacation(User submitByUser, string startDate, string endDate, string dateOfCreation, bool isApproved)
+        {
+            SubmitByUser = submitByUser;
+            StartDate = startDate;
+            EndDate = endDate;
+            DateOfCreation = dateOfCreation;
+            IsApproved = isApproved;
+        }
         public Vacation()
         {
 
