@@ -12,6 +12,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUDOperations", "CRUDOpera
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\DataModels.csproj", "{8B4F4F48-F5CE-4382-9720-332565314FAD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01B136E0-6ABF-4456-BC9F-0DE0C736D7B5}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
