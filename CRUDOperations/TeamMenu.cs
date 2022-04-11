@@ -18,25 +18,31 @@ namespace CRUDOperations
             Console.WriteLine();
             Console.Write("Enter your command: ");
             string input = Console.ReadLine();
-
-            int selection = -1;
-            if (int.TryParse(input, out selection))
+            if(input == null)
             {
-                if (selection == 1)
+                throw new Exception("Input is not found!");
+            }
+            else 
+            { 
+                int selection = -1;
+                if (int.TryParse(input, out selection))
                 {
-                    CreateTeam(db);
-                }
-                else if (selection == 2)
-                {
-                    ReadTeam(db);
-                }
-                else if (selection == 3)
-                {
-                    UpdateTeam(db);
-                }
-                else if (selection == 4)
-                {
-                    RemoveTeam(db);
+                     if (selection == 1)
+                     {
+                        CreateTeam(db);
+                     }
+                     else if (selection == 2)
+                     {
+                        ReadTeam(db);
+                     }
+                     else if (selection == 3)
+                     {
+                        UpdateTeam(db);
+                     }
+                     else if (selection == 4)
+                     {
+                        RemoveTeam(db);
+                     }
                 }
             }
         }
@@ -102,7 +108,7 @@ namespace CRUDOperations
             }
 
         }
-        static Role PickRole(ModelContext db)
+        static Role? PickRole(ModelContext db)
         {
             if (db.Roles.Count() < 1)
             {
@@ -131,7 +137,7 @@ namespace CRUDOperations
                    
                 }
             }
-            static  Team PickTeam(ModelContext db)
+            static  Team? PickTeam(ModelContext db)
             {
                 if (db.Teams.Count() < 1)
                 {
@@ -158,7 +164,7 @@ namespace CRUDOperations
                             Console.WriteLine("Invalid Book! Try again.");
                     }
                 }
-                static User PickUser(ModelContext db)
+                static User? PickUser(ModelContext db)
                 {
                     if (db.Users.Count() < 1)
                     {
